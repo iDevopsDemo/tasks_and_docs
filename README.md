@@ -6,6 +6,8 @@ This simple devops and k8s showcase sketches a quite common software development
 
 ## How to deploy
 
+### Manually
+
 Either deploy the entire system via a umbrella/parent-chart:
 
 ```sh
@@ -33,6 +35,10 @@ helm install -n xo-sample comp-a xo-sample/comp-a
 helm install -n xo-sample comp-b xo-sample/comp-b
 helm install -n xo-sample comp-c xo-sample/comp-c
 ```
+
+### FluxCD
+
+Check the following project: https://code.siemens.com/xo/xo-devops-enablement/playground/sample-apps/xo-sample/environment/aws-account-fake
 
 ### Customization
 
