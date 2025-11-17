@@ -1,0 +1,39 @@
+Whitebox
+Subcomponents
+ATAM # Architecture Tradeoff Analysis Method
+Xcelerator
+pentest
+plantuml
+reusables
+startuml
+enduml
+Protobuf
+SNMP
+earlyaccess
+SonarQube
+mgmt
+Blackduck
+semversion
+Cheatsheet
+SINEMA
+SWAC
+OPSWAT
+Metadefender
+# specific lingo
+discoveryagent
+discoveryclient
+discoveryhandler
+remoteagent
+remoteclient
+remotehandler
+openfga
+shopfloor
+gitops
+dockerized
+cicd
+# All the -ilities
+Securability
+Installability
+Replaceability
+Analyzability
+samauth

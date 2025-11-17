@@ -1,0 +1,5 @@
+.husky/
+.DS_Store
+node_modules/
+site/
+work/

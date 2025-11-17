@@ -1,0 +1,88 @@
+# Project information
+site_name: MySite 360 DevOps Documentation
+site_description: "MySite 360 DevOps Documentation"
+site_author: "MySite 360 DevOps Team"
+copyright: "Copyright &copy; 2025-2026 Siemens AG"
+
+theme:
+  name: "code-siemens-code-docs-theme"
+  palette:
+    - scheme: dark
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+    - scheme: light
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - navigation.footer
+    - page.toc
+
+nav:
+  - Home: index.md
+  # - Introduction & Goals: 01_introduction_and_goals.md
+  # - Architecture Constraints: 02_architecture_constraints.md
+  # - Context & Scope: 03_system_scope_and_context.md
+  # - Solution Strategy: 04_solution_strategy.md
+  # - Building Block View: 05_building_block_view.md
+  # - Runtime View: 06_runtime_view.md
+  # - Deployment View: 07_deployment_view.md
+  # - Cross Cutting Concepts: 08_cross_cutting_concepts.md
+  # - Architecture Decisions:
+  #   - KDD List: 09_architecture_decisions/09_architecture_decisions.md
+  #   - KDD-61 WFX Client: 09_architecture_decisions/kdd_61_wfx_client.md
+  #   - KDD-63 Feature Flags: 09_architecture_decisions/kdd_63_feature_flags.md
+  #   - KDD-64 Telemetry Usage on Gateway: 09_architecture_decisions/kdd_64_telemetry_usage_on_gw.md
+  #   - KDD-68 High level concept for context hierarchy data: 09_architecture_decisions/kdd_68_context_inventory_concept.md
+  # '  - KDD-69 Prevent JWT expiration: 09_architecture_decisions/kdd_69_prevent_JWT_expiration.md
+  # - Concepts:
+  #   - Cross Cutting Concepts: 08_concepts/08_concepts.md
+  #   - API guidelines: 08_concepts/08_02_api_guidelines.md
+  # - Quality Attributes: 10_quality_attributes.md
+  - Meetings:
+    - "31.10.2025": meetings/mm311025.md
+    - notes: meetings/notes.md
+  - Versioning: versioning/README.md
+  - Glossary: 12_glossary.md
+  - Appendix: A_appendix.md
+
+extra:
+  links:
+    - name: "code"
+      value: "https://code.siemens.com/mydevops/mysite360/tasks_and_docs"
+
+  hide_license_text: true
+
+markdown_extensions:
+  - plantuml_markdown:
+      server: https://code.siemens.com/api/plantuml
+  - pymdownx.highlight:
+      linenums: true
+      linenums_style: pymdownx-inline
+      guess_lang: true
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - admonition
+  - footnotes
+  - pymdownx.details
+  - abbr
+  - attr_list
+  - pymdownx.tabbed
+  - pymdownx.tasklist
+  - pymdownx.tilde
+
+use_directory_urls: false
+
+extra_javascript:
+  - https://unpkg.com/tablesort@5.3.0/dist/tablesort.min.js
+  - javascripts/tablesort.js
