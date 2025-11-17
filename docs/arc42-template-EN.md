@@ -1,4 +1,4 @@
-# Introduction and Goals {#section-introduction-and-goals}
+# Introduction and Goals
 
 Describes the relevant requirements and the driving forces that software
 architects and development team must consider. These include
@@ -13,7 +13,7 @@ architects and development team must consider. These include
 
 - relevant stakeholders and their expectations
 
-## Requirements Overview {#_requirements_overview}
+## Requirements Overview
 
 Contents
 
@@ -41,7 +41,7 @@ Further Information
 See [Introduction and Goals](https://docs.arc42.org/section-1/) in the
 arc42 documentation.
 
-## Quality Goals {#_quality_goals}
+## Quality Goals
 
 Contents
 
@@ -67,7 +67,7 @@ Form
 
 A table with quality goals and concrete scenarios, ordered by priorities
 
-## Stakeholders {#_stakeholders}
+## Stakeholders
 
 Contents
 
@@ -101,7 +101,7 @@ to the architecture and its documentation.
 | *\<Role-1\>* | *\<Contact-1\>* | *\<Expectation-1\>* |
 | *\<Role-2\>* | *\<Contact-2\>* | *\<Expectation-2\>* |
 
-# Architecture Constraints {#section-architecture-constraints}
+# Architecture Constraints
 
 Contents
 
@@ -128,7 +128,7 @@ Further Information
 See [Architecture Constraints](https://docs.arc42.org/section-2/) in the
 arc42 documentation.
 
-# Context and Scope {#section-context-and-scope}
+# Context and Scope
 
 Contents
 
@@ -159,7 +159,7 @@ Further Information
 See [Context and Scope](https://docs.arc42.org/section-3/) in the arc42
 documentation.
 
-## Business Context {#_business_context}
+## Business Context
 
 Contents
 
@@ -186,7 +186,7 @@ the communication partner, the inputs, and the outputs.
 
 **\<optionally: Explanation of external domain interfaces\>**
 
-## Technical Context {#_technical_context}
+## Technical Context
 
 Contents
 
@@ -213,7 +213,7 @@ and input/output.
 
 **\<Mapping Input/Output to Channels\>**
 
-# Solution Strategy {#section-solution-strategy}
+# Solution Strategy
 
 Contents
 
@@ -249,7 +249,7 @@ Further Information
 See [Solution Strategy](https://docs.arc42.org/section-4/) in the arc42
 documentation.
 
-# Building Block View {#section-building-block-view}
+# Building Block View
 
 Content
 
@@ -291,7 +291,7 @@ Further Information
 See [Building Block View](https://docs.arc42.org/section-5/) in the
 arc42 documentation.
 
-## Whitebox Overall System {#_whitebox_overall_system}
+## Whitebox Overall System
 
 Here you describe the decomposition of the overall system using the
 following white box template. It contains
@@ -348,7 +348,7 @@ If you use a list of black box descriptions then you fill in a separate
 black box template for every important building block . Its headline is
 the name of the black box.
 
-### \<Name black box 1\> {#_name_black_box_1}
+### \<Name black box 1\>
 
 Here you describe \<black box 1\> according the the following black box
 template:
@@ -380,21 +380,21 @@ template:
 
 *\<(optional) Open Issues/Problems/Risks\>*
 
-### \<Name black box 2\> {#_name_black_box_2}
+### \<Name black box 2\>
 
 *\<black box template\>*
 
-### \<Name black box n\> {#_name_black_box_n}
+### \<Name black box n\>
 
 *\<black box template\>*
 
-### \<Name interface 1\> {#_name_interface_1}
+### \<Name interface 1\>
 
 ...​
 
-### \<Name interface m\> {#_name_interface_m}
+### \<Name interface m\>
 
-## Level 2 {#_level_2}
+## Level 2
 
 Here you can specify the inner structure of (some) building blocks from
 level 1 as white boxes.
@@ -405,23 +405,23 @@ over completeness. Specify important, surprising, risky, complex or
 volatile building blocks. Leave out normal, simple, boring or
 standardized parts of your system
 
-### White Box *\<building block 1\>* {#_white_box_building_block_1}
+### White Box *\<building block 1\>*
 
 ...​describes the internal structure of *building block 1*.
 
 *\<white box template\>*
 
-### White Box *\<building block 2\>* {#_white_box_building_block_2}
+### White Box *\<building block 2\>*
 
 *\<white box template\>*
 
 ...​
 
-### White Box *\<building block m\>* {#_white_box_building_block_m}
+### White Box *\<building block m\>*
 
 *\<white box template\>*
 
-## Level 3 {#_level_3}
+## Level 3
 
 Here you can specify the inner structure of (some) building blocks from
 level 2 as white boxes.
@@ -429,21 +429,21 @@ level 2 as white boxes.
 When you need more detailed levels of your architecture please copy this
 part of arc42 for additional levels.
 
-### White Box \<\_building block x.1\_\> {#_white_box_building_block_x_1}
+### White Box \<\_building block x.1\_\>
 
 Specifies the internal structure of *building block x.1*.
 
 *\<white box template\>*
 
-### White Box \<\_building block x.2\_\> {#_white_box_building_block_x_2}
+### White Box \<\_building block x.2\_\>
 
 *\<white box template\>*
 
-### White Box \<\_building block y.1\_\> {#_white_box_building_block_y_1}
+### White Box \<\_building block y.1\_\>
 
 *\<white box template\>*
 
-# Runtime View {#section-runtime-view}
+# Runtime View
 
 Contents
 
@@ -493,20 +493,20 @@ Further Information
 See [Runtime View](https://docs.arc42.org/section-6/) in the arc42
 documentation.
 
-## \<Runtime Scenario 1\> {#_runtime_scenario_1}
+## \<Runtime Scenario 1\>
 
 - *\<insert runtime diagram or textual description of the scenario\>*
 
 - *\<insert description of the notable aspects of the interactions
   between the building block instances depicted in this diagram.\>*
 
-## \<Runtime Scenario 2\> {#_runtime_scenario_2}
+## \<Runtime Scenario 2\>
 
 ## ...​
 
-## \<Runtime Scenario n\> {#_runtime_scenario_n}
+## \<Runtime Scenario n\>
 
-# Deployment View {#section-deployment-view}
+# Deployment View
 
 Content
 
@@ -559,7 +559,7 @@ Further Information
 See [Deployment View](https://docs.arc42.org/section-7/) in the arc42
 documentation.
 
-## Infrastructure Level 1 {#_infrastructure_level_1}
+## Infrastructure Level 1
 
 Describe (usually in a combination of diagrams, tables, and text):
 
@@ -590,28 +590,28 @@ Mapping of Building Blocks to Infrastructure
 
 :   *\<description of the mapping\>*
 
-## Infrastructure Level 2 {#_infrastructure_level_2}
+## Infrastructure Level 2
 
 Here you can include the internal structure of (some) infrastructure
 elements from level 1.
 
 Please copy the structure from level 1 for each selected element.
 
-### *\<Infrastructure Element 1\>* {#_infrastructure_element_1}
+### *\<Infrastructure Element 1\>*
 
 *\<diagram + explanation\>*
 
-### *\<Infrastructure Element 2\>* {#_infrastructure_element_2}
+### *\<Infrastructure Element 2\>*
 
 *\<diagram + explanation\>*
 
 ...​
 
-### *\<Infrastructure Element n\>* {#_infrastructure_element_n}
+### *\<Infrastructure Element n\>*
 
 *\<diagram + explanation\>*
 
-# Cross-cutting Concepts {#section-concepts}
+# Cross-cutting Concepts
 
 Content
 
@@ -669,21 +669,21 @@ components.
 See [Concepts](https://docs.arc42.org/section-8/) in the arc42
 documentation.
 
-## *\<Concept 1\>* {#_concept_1}
+## *\<Concept 1\>*
 
 *\<explanation\>*
 
-## *\<Concept 2\>* {#_concept_2}
+## *\<Concept 2\>*
 
 *\<explanation\>*
 
 ...​
 
-## *\<Concept n\>* {#_concept_n}
+## *\<Concept n\>*
 
 *\<explanation\>*
 
-# Architecture Decisions {#section-design-decisions}
+# Architecture Decisions
 
 Contents
 
@@ -721,7 +721,7 @@ Further Information
 See [Architecture Decisions](https://docs.arc42.org/section-9/) in the
 arc42 documentation. There you will find links and examples about ADR.
 
-# Quality Requirements {#section-quality-scenarios}
+# Quality Requirements
 
 Content
 
@@ -747,7 +747,7 @@ Further Information
 - See the extensive [Q42 quality model on
   https://quality.arc42.org](https://quality.arc42.org).
 
-## Quality Requirements Overview {#_quality_requirements_overview}
+## Quality Requirements Overview
 
 Content
 
@@ -774,7 +774,7 @@ the generic term \"quality\" as the root and uses a tree-like refinement
 of the term \"quality\". \[Bass+21\] introduced the term \"Quality
 Attribute Utility Tree\" for this purpose.
 
-## Quality Scenarios {#_quality_scenarios}
+## Quality Scenarios
 
 Content
 
@@ -846,7 +846,7 @@ Further Information
 - Len Bass, Paul Clements, Rick Kazman: \"Software Architecture in
   Practice\", 4th Edition, Addison-Wesley, 2021.
 
-# Risks and Technical Debts {#section-technical-risks}
+# Risks and Technical Debts
 
 Contents
 
@@ -873,7 +873,7 @@ Further Information
 See [Risks and Technical Debt](https://docs.arc42.org/section-11/) in
 the arc42 documentation.
 
-# Glossary {#section-glossary}
+# Glossary
 
 Contents
 
