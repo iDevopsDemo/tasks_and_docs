@@ -2,12 +2,12 @@
 
 This documents will summaries the used versioning schema of MySite360.
 
-The concept is based on [Semantic Versiong 2.0.0](https://semver.org/) and the specifics of the different packaging tools like: rpm, war or docker. Further, the git tag mechanisms are used to determine the version of the corresponding service and/or library and enforces the traceability between the artifacts and the source code.
+The concept is based on [Semantic Versioning 2.0.0](https://semver.org/) and the specifics of the different packaging tools like: rpm, war or docker. Further, the git tag mechanisms are used to determine the version of the corresponding service and/or library and enforces the traceability between the artifacts and the source code.
 
 In detail, the versions must contain:
 
 * MAJOR.MINOR.PATCH version number(semversion)
-* (optional) a pre-release identifier + githash for not yet stable versions
+* (optional) a pre-release identifier + git hash for not yet stable versions
 
 Examples:
 
@@ -36,7 +36,7 @@ Sorting example:
 
 ## Package Manager and Git-Semver
 
-The MySite360 projects uses a wide variety of different package management tools. While all of these tools in general supporting [Semantic Versiong 2.0.0](https://semver.org/) some tools using specific syntax. For example DOCKER do not allow `+` signs while RPM describes pre-release versions via `~` instead of `-`. Further, per default `git describe` does not directly support proper pre-release outputs.
+The MySite360 projects uses a wide variety of different package management tools. While all of these tools in general supporting [Semantic Versioning 2.0.0](https://semver.org/) some tools using specific syntax. For example DOCKER do not allow `+` signs while RPM describes pre-release versions via `~` instead of `-`. Further, per default `git describe` does not directly support proper pre-release outputs.
 
 To address these issues, MySite360 uses an adapted version of [git-semver](https://code.siemens.com/idevops/git-semver). This tool allows the easy creation of a MySite360 valid semantic versions and is available in most of the build containers or via curl install.
 
@@ -69,7 +69,7 @@ Please notice that `-dev.X` versions are always treaded as lower versions as `-r
 This section will illustrate common use-cases and how to do branching and tagging. In general we need to differentiate the following use cases:
 
 * feature development
-* bugfixing
+* bug fixing
 * introduction of breaking changes
 
 The following picture describes all these use cases:

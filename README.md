@@ -38,7 +38,7 @@ helm install -n xo-sample comp-c xo-sample/comp-c
 
 ### FluxCD
 
-Check the following project: https://code.siemens.com/xo/xo-devops-enablement/playground/sample-apps/xo-sample/environment/aws-account-fake
+Check the following project: <https://code.siemens.com/xo/xo-devops-enablement/playground/sample-apps/xo-sample/environment/aws-account-fake>
 
 ### Customization
 

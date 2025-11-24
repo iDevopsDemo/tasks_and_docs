@@ -1,0 +1,4 @@
+filters:
+    - pandoc-kroki-filter
+kroki:
+    - https://code.siemens.com/api/plantuml

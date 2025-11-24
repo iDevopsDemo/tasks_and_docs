@@ -1,0 +1,64 @@
+{
+  "name": "mysite360-devops",
+  "version": "0.0.1",
+  "description": "MySite 360 DevOps Documentation",
+  "homepage": "https://code.siemens.com/mydevops/mysite360",
+  "author": "MySite 360 DevOps Team",
+  "license": "SEE LICENSE IN LICENSE.md",
+  "repository": {
+    "type": "git",
+    "url": "git@code.siemens.com:mydevops/mysite360/tasks_and_docs.git"
+  },
+  "keywords": [
+    "Siemens",
+    "Developer",
+    "DevOps",
+    "arch42",
+    "MySite 360",
+    "Gamesa"
+  ],
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "scripts": {
+    "version": "conventional-changelog -p angular -i CHANGELOG.md -s && git add CHANGELOG.md",
+    "build:all": "poetry run mkdocs build --strict",
+    "format": "prettier --write .",
+    "lint:markdown": "markdownlint -d -p .gitignore -i CONTRIBUTING.md -i MAINTAINERS.md -i README.md -i pandoc-kroki-filter .",
+    "lint:editorconfig": "editorconfig-checker",
+    "lint:commit": "commitlint --from=origin/main",
+    "lint:prettier": "prettier --check .",
+    "lint:css": "stylelint docs/stylesheets/**/*.css",
+    "lint:cspell": "yarn cspell docs/{*,.*}/**/*.md --no-progress --show-suggestions",
+    "lint:links": "find ./docs/ -name \\*.md -print0 | xargs -0 -n1 yarn markdown-link-check --config .markdown-link-check.json --quiet -v",
+    "lint:all": "yarn lint:markdown && yarn lint:commit && yarn lint:prettier && lint:css && yarn lint:cspell",
+    "prepare": "husky install",
+    "local:run": "poetry run mkdocs serve --strict",
+    "watch:all": "concurrently 'yarn:local:run'",
+    "prep:pdf": "scripts/prep-pdf-export.sh",
+    "build:pdf": "yarn run prep:pdf && poetry run pandoc work/combined.md -o work/combined.pdf --resource-path=work --template=scripts/template.tex --metadata title='TITLE' -V docTitle='MySite 360 DevOps Documentation' -V docAuthor='Florian Gerdes' -V docRevision='V1.4' -V docDate='2025-08-08' --toc -V geometry='top=1.5cm,bottom=1.5cm,left=1.5cm,right=2cm' --filter 'pandoc-kroki'"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^17.5.1",
+    "@commitlint/config-conventional": "^17.6.1",
+    "@cspell/cspell-json-reporter": "^7.0.0",
+    "concurrently": "^8.0.1",
+    "conventional-changelog-cli": "^4.0.0",
+    "cspell": "^7.0.0",
+    "editorconfig-checker": "^5.0.1",
+    "eslint": "^8.37.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-config-prettier": "^9.0.0",
+    "husky": "^8.0.3",
+    "js-yaml": "^4.1.0",
+    "markdown-link-check": "^3.11.2",
+    "markdownlint-cli": "^0.36.0",
+    "prettier": "^3.0.0",
+    "sass": "^1.60.0",
+    "stylelint": "^15.5.0",
+    "stylelint-config-recess-order": "^4.0.0",
+    "stylelint-config-standard-scss": "^11.0.0"
+  }
+}

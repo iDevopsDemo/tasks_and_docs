@@ -39,16 +39,16 @@ domain-specific practices and legal requirements, make sure you follow this proc
 * Include a link to the files `LICENSE.md` and `COPYING.md` in the `README.md` of your project
 
 * Ensure that the comments and file headers **do not contain**:
-  * product and/or project names, release numbers and their release dates
-  * inappropriate language
-  * any words and/or phrases like "stolen from" or "copied from". A
+    * product and/or project names, release numbers and their release dates
+    * inappropriate language
+    * any words and/or phrases like "stolen from" or "copied from". A
     contribution is a serious matter and not the place for jokes. If you have
     the need to provide information like "derived from" ensure that you also
     provide the "license information" of the code you derived from.
 
 * Ensure that files to **do not contain**:
-  * configuration information
-  * credentials for real IT-environments, like server names, IP-addresses,
+    * configuration information
+    * credentials for real IT-environments, like server names, IP-addresses,
     login information, or passwords.
 
 * Write code in accordance with the applicable **coding style**.

@@ -1,0 +1,95 @@
+include:
+  - template: "Workflows/MergeRequest-Pipelines.gitlab-ci.yml"
+  - template: "Workflows/Branch-Pipelines.gitlab-ci.yml"
+  - project: "common-device-management/utils/templates/gitlab-ci"
+    ref: main
+    file: "shared/pre-commit.yaml"
+
+stages:
+  - check
+  - build
+  - deploy
+
+default:
+  image: $CI_REGISTRY/code-ops/poetry-docker:2.2-py3.14
+  tags:
+    - DOCKER
+
+variables:
+  http_proxy: $CODE_PROXY
+  https_proxy: $CODE_PROXY
+  no_proxy: $CODE_NO_PROXY
+  POETRY_HTTP_BASIC_MKDOCS_USERNAME: gitlab-ci-token
+  POETRY_HTTP_BASIC_MKDOCS_PASSWORD: $CI_JOB_TOKEN
+  GIT_SUBMODULE_STRATEGY: recursive
+  GIT_SUBMODULE_DEPTH: 1
+
+check:pre-commit:
+  allow_failure: true
+
+lint:
+  allow_failure: false
+  image: node:krypton
+  stage: check
+  before_script:
+    - yarn
+    - apt-get -qq update
+    - apt-get install -y jq mmv
+  script:
+    - yarn run lint:markdown
+    - yarn run lint:cspell
+  after_script:
+    # supported format https://docs.gitlab.com/ee/ci/testing/code_quality.html#implement-a-custom-tool
+    - |
+      jq .issues out.json | jq --arg ci_project_dir $CI_PROJECT_DIR '[.[] | {description: (.text + ": " + .context.text) , severity: "major", location: { path: .uri | sub("file://" + $ci_project_dir + "/"; ""), lines: { begin: .row}}, fingerprint: . | @base64 }]' > gl-code-quality-report.json
+  artifacts:
+    reports:
+      codequality: gl-code-quality-report.json
+
+build-mkdocs:
+  stage: build
+  script:
+    - poetry install --no-root
+    - poetry run mkdocs build --strict ${CI_MERGE_REQUEST_IID+--no-directory-urls}
+  artifacts:
+    expire_in: 3h
+    paths:
+      - site/
+
+.deploy-mkdocs:
+  stage: deploy
+  needs:
+    - build-mkdocs
+  image: busybox:1.36.1
+  script:
+    - mv site/ public/
+  artifacts:
+    paths:
+      - public/
+
+review: # Create a review environment (named after the current branch) and link to the latest job artifact
+  stage: deploy
+  rules:
+    - if: '$CI_COMMIT_TAG && $CI_COMMIT_REF_PROTECTED == "true"'
+      when: never
+    - if: $CI_COMMIT_BRANCH != $CI_DEFAULT_BRANCH
+  script:
+    - echo "Review content"
+  needs:
+    - job: build-mkdocs
+      artifacts: true
+  artifacts:
+    paths:
+      - site/
+  environment:
+    name: review/${CI_COMMIT_REF_SLUG}
+    url: ${CI_JOB_URL}/artifacts/file/site/index.html
+
+
+pages:
+  extends: .deploy-mkdocs
+  environment:
+    name: production
+    url: $CI_PAGES_URL
+  rules:
+  - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
