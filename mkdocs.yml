@@ -44,7 +44,9 @@ nav:
   #   - API guidelines: 08_concepts/08_02_api_guidelines.md
   # - Quality Attributes: 10_quality_attributes.md
   - Meetings:
-    - "31.10.2025": meetings/mm311025.md
+    - "31.10.2025": meetings/mm251031.md
+    - "12.11.2025": meetings/mm251112.md
+    - "18.11.2025": meetings/mm251118.md
     - notes: meetings/notes.md
   - Versioning: versioning/README.md
   - Glossary: 12_glossary.md
