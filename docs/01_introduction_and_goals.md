@@ -10,12 +10,14 @@ The overarching architecture vision 2.0 focuses on the following key aspects:
 - **Test Automation**: Implementing automated testing frameworks to ensure code quality, reduce manual effort, and accelerate the development lifecycle.
 - **Continuous Integration and Continuous Deployment (CI/CD)**: Implementing robust CI/CD pipelines to automate the build, test, and deployment processes, enabling faster and more reliable software delivery.
 - **Infrastructure as Code (IaC)**: Adopting IaC practices using tools like Terraform and Ansible to manage infrastructure in a version-controlled and automated manner.
+- **Monitoring and Logging**: Establishing comprehensive monitoring and logging solutions to ensure system reliability, performance, and proactive issue resolution.
 
 The main objectives of this document are:
 
 - To define the key components of the DevOps architecture, including tools, technologies, and processes.
 - To outline the roles and responsibilities of team members involved in the DevOps practices.
 - To establish best practices for continuous integration, continuous delivery, and infrastructure as code.
+- To provide guidelines for monitoring, logging, and incident management.
 
 ## Requirements Overview
 
