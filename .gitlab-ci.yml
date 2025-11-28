@@ -29,10 +29,8 @@ include:
   - project: 'mydevops/mysite360/environment/pipeline-snippets'
     file: '/config/defaults/all-components.yml'
   - project: 'mydevops/mysite360/environment/pipeline-snippets'
-    ref: feat/add-pre-commit
     file: '/tests/code-checks/commitlint/commitlint.yaml'
   - project: 'mydevops/mysite360/environment/pipeline-snippets'
-    ref: feat/add-pre-commit
     file: '/tests/code-checks/pre-commit/pre-commit.yaml'
 
 
