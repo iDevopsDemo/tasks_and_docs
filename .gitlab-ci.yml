@@ -83,6 +83,9 @@ build-mkdocs:
     expire_in: 3h
     paths:
       - site/
+  rules:
+    - !reference [.rules, restrict to, build and promote, or release to production]
+    - !reference [.rules, run on success, for debugging, in any case]
 
 .deploy-mkdocs:
   stage: deploy
