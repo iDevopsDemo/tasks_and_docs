@@ -1,12 +1,43 @@
+variables:
+  ACTION:
+    description: 'Action requested'
+    value: 'Build and promote'
+    options:
+      - 'Debug'
+      - 'Build and promote'
+      - 'Release to production'
+      - 'Run as plugin pipeline'
+  PLUGIN:      
+    description: 'Specifies the type of the plugin pipeline ("N/A" if not running as plugin)'
+    value: 'N/A'
+    options: 
+      - 'N/A'
+      - 'Merge gate'
+      - 'Integration gate'
+      - 'Staging gate'
+  DEBUG:
+    description: 'Enables pipeline debugging mode (if set to "true")'
+    value: 'false'
+    options:
+      - 'false'
+      - 'true'
+
+
 include:
-  - template: "Workflows/MergeRequest-Pipelines.gitlab-ci.yml"
-  - template: "Workflows/Branch-Pipelines.gitlab-ci.yml"
-  - project: "common-device-management/utils/templates/gitlab-ci"
-    ref: main
-    file: "shared/pre-commit.yaml"
+  - project: 'mydevops/mysite360/environment/pipeline-snippets'
+    file: '/config/defaults/project.yml'
+  - project: 'mydevops/mysite360/environment/pipeline-snippets'
+    file: '/config/defaults/all-components.yml'
+  - project: 'mydevops/mysite360/environment/pipeline-snippets'
+    ref: feat/add-pre-commit
+    file: '/tests/code-checks/commitlint/commitlint.yaml'
+  - project: 'mydevops/mysite360/environment/pipeline-snippets'
+    ref: feat/add-pre-commit
+    file: '/tests/code-checks/pre-commit/pre-commit.yaml'
+
 
 stages:
-  - check
+  - code checks
   - build
   - deploy
 
@@ -24,13 +55,10 @@ variables:
   GIT_SUBMODULE_STRATEGY: recursive
   GIT_SUBMODULE_DEPTH: 1
 
-check:pre-commit:
-  allow_failure: true
-
 lint:
   allow_failure: false
   image: node:krypton
-  stage: check
+  stage: code checks
   before_script:
     - yarn
     - apt-get -qq update
