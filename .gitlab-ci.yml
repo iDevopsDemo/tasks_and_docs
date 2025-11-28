@@ -84,8 +84,10 @@ build-mkdocs:
     paths:
       - site/
   rules:
-    - !reference [.rules, restrict to, build and promote, or release to production]
     - !reference [.rules, run on success, for debugging, in any case]
+    - !reference [.rules, run on success, for commit on working branch, in any case]
+    - !reference [.rules, run on success, for merge request to default branch, in any case]
+    - !reference [.rules, run on success, for commit on default branch, in any case]
 
 .deploy-mkdocs:
   stage: deploy
@@ -100,22 +102,21 @@ build-mkdocs:
 
 review: # Create a review environment (named after the current branch) and link to the latest job artifact
   stage: deploy
-  rules:
-    - if: '$CI_COMMIT_TAG && $CI_COMMIT_REF_PROTECTED == "true"'
-      when: never
-    - if: $CI_COMMIT_BRANCH != $CI_DEFAULT_BRANCH
   script:
     - echo "Review content"
-  needs:
-    - job: build-mkdocs
-      artifacts: true
   artifacts:
     paths:
       - site/
   environment:
     name: review/${CI_COMMIT_REF_SLUG}
     url: ${CI_JOB_URL}/artifacts/file/site/index.html
-
+  needs:
+    - job: build-mkdocs
+      artifacts: true
+  rules:
+    - !reference [.rules, run on success, for debugging, in any case]
+    - !reference [.rules, run on success, for commit on working branch, in any case]
+    - !reference [.rules, run on success, for merge request to default branch, in any case]
 
 pages:
   extends: .deploy-mkdocs
