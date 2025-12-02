@@ -30,7 +30,6 @@ The DevOps approach is governed by the currenty pain points within the developme
 | Problematic ownership between teams         |        :white_check_mark:       |                         |                             |          :white_check_mark:          |                            :x:                           |                    | :white_check_mark: |
 | Lack of data centric architecture           |                                 |                         |                             |                                      |                    :white_check_mark:                    |                    |                    |
 
-
 **Business-oriented microservices**
 
 Decomposing the monolithic application into smaller, independently deployable services aligned with business capabilities. Each microservice owns its own data and business logic, enabling teams to develop, deploy, and scale services independently. This reduces coupling between components, improves maintainability, and allows teams to take clear ownership of specific business domains.
