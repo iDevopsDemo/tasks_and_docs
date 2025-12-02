@@ -1,12 +1,41 @@
+variables:
+  ACTION:
+    description: 'Action requested'
+    value: 'Build and promote'
+    options:
+      - 'Debug'
+      - 'Build and promote'
+      - 'Release to production'
+      - 'Run as plugin pipeline'
+  PLUGIN:
+    description: 'Specifies the type of the plugin pipeline ("N/A" if not running as plugin)'
+    value: 'N/A'
+    options:
+      - 'N/A'
+      - 'Merge gate'
+      - 'Integration gate'
+      - 'Staging gate'
+  DEBUG:
+    description: 'Enables pipeline debugging mode (if set to "true")'
+    value: 'false'
+    options:
+      - 'false'
+      - 'true'
+
+
 include:
-  - template: "Workflows/MergeRequest-Pipelines.gitlab-ci.yml"
-  - template: "Workflows/Branch-Pipelines.gitlab-ci.yml"
-  - project: "common-device-management/utils/templates/gitlab-ci"
-    ref: main
-    file: "shared/pre-commit.yaml"
+  - project: 'mydevops/mysite360/environment/pipeline-snippets'
+    file: '/config/defaults/project.yml'
+  - project: 'mydevops/mysite360/environment/pipeline-snippets'
+    file: '/config/defaults/all-components.yml'
+  - project: 'mydevops/mysite360/environment/pipeline-snippets'
+    file: '/tests/code-checks/commitlint/commitlint.yaml'
+  - project: 'mydevops/mysite360/environment/pipeline-snippets'
+    file: '/tests/code-checks/pre-commit/pre-commit.yaml'
+
 
 stages:
-  - check
+  - code checks
   - build
   - deploy
 
@@ -24,13 +53,10 @@ variables:
   GIT_SUBMODULE_STRATEGY: recursive
   GIT_SUBMODULE_DEPTH: 1
 
-check:pre-commit:
-  allow_failure: true
-
 lint:
   allow_failure: false
   image: node:krypton
-  stage: check
+  stage: code checks
   before_script:
     - yarn
     - apt-get -qq update
@@ -55,6 +81,11 @@ build-mkdocs:
     expire_in: 3h
     paths:
       - site/
+  rules:
+    - !reference [.rules, run on success, for debugging, in any case]
+    - !reference [.rules, run on success, for commit on working branch, in any case]
+    - !reference [.rules, run on success, for merge request to default branch, in any case]
+    - !reference [.rules, run on success, for commit on default branch, in any case]
 
 .deploy-mkdocs:
   stage: deploy
@@ -69,22 +100,21 @@ build-mkdocs:
 
 review: # Create a review environment (named after the current branch) and link to the latest job artifact
   stage: deploy
-  rules:
-    - if: '$CI_COMMIT_TAG && $CI_COMMIT_REF_PROTECTED == "true"'
-      when: never
-    - if: $CI_COMMIT_BRANCH != $CI_DEFAULT_BRANCH
   script:
     - echo "Review content"
-  needs:
-    - job: build-mkdocs
-      artifacts: true
   artifacts:
     paths:
       - site/
   environment:
     name: review/${CI_COMMIT_REF_SLUG}
     url: ${CI_JOB_URL}/artifacts/file/site/index.html
-
+  needs:
+    - job: build-mkdocs
+      artifacts: true
+  rules:
+    - !reference [.rules, run on success, for debugging, in any case]
+    - !reference [.rules, run on success, for commit on working branch, in any case]
+    - !reference [.rules, run on success, for merge request to default branch, in any case]
 
 pages:
   extends: .deploy-mkdocs
