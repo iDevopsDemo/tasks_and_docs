@@ -1,16 +1,8 @@
 # Introduction and Goals
 
-This document describes the DevOps architecture of **mysite360** project and suites as the DevOps foundation for the architecture vision 2.0.
+This document describes the DevOps architecture of **mysite360** project and outlines the strategic decisions, architectural approaches, and technological choices made during the transformation of the **mysite360** software platform into a "Next Generation" architecture.
 
-The main goal of this document is to provide a comprehensive overview of the DevOps architecture, including its components, processes, and best practices. It aims to align the development and operations teams towards a common vision and set of objectives.
-
-The overarching architecture vision 2.0 focuses on the following key aspects:
-
-- **Containerization and Orchestration**: Leveraging containerization technologies like Docker and orchestration tools like Kubernetes to ensure scalability, flexibility, and efficient resource utilization.
-- **Test Automation**: Implementing automated testing frameworks to ensure code quality, reduce manual effort, and accelerate the development lifecycle.
-- **Continuous Integration and Continuous Deployment (CI/CD)**: Implementing robust CI/CD pipelines to automate the build, test, and deployment processes, enabling faster and more reliable software delivery.
-- **Infrastructure as Code (IaC)**: Adopting IaC practices using tools like Terraform and Ansible to manage infrastructure in a version-controlled and automated manner.
-- **Monitoring and Logging**: Establishing comprehensive monitoring and logging solutions to ensure system reliability, performance, and proactive issue resolution.
+The main goal of this document is to provide a comprehensive overview of the DevOps architecture, meaning  the development, setup, deployment, and Continuous Integration/Continuous Deployment (CI/CD) aspects of this transition. It aims to align the development and operations teams towards a common vision and set of objectives.
 
 The main objectives of this document are:
 
@@ -21,108 +13,74 @@ The main objectives of this document are:
 
 ## Requirements Overview
 
-**Contents**
+### Pain Points vs Remediation Objectives
 
-Short description of the functional requirements, driving forces,
-extract (or abstract) of requirements. Link to (hopefully existing)
-requirements documents (with version number and information where to
-find it).
+The DevOps approach is governed by the currenty pain points within the development and operations of **mysite360** and some centrally defined remediation strategies.
 
-**Motivation**
+|                                             | Business-oriented microservices | Container orchestration | Shift-left testing approach | API governance through API contracts | Data-driven architecture (Data collectors, mesh & subscription, coordinated data models) | DevSecOps          | Release mgmt.      |
+|---------------------------------------------|---------------------------------|-------------------------|-----------------------------|--------------------------------------|----------------------------------------------------------|--------------------|--------------------|
+| High maintenance costs                      |        :white_check_mark:       |                         |      :white_check_mark:     |                                      |                                                          |                    |                    |
+| High defect rate                            |        :white_check_mark:       |                         |      :white_check_mark:     |          :white_check_mark:          |                                                          |                    |                    |
+| Low development velocity                    |        :white_check_mark:       |                         |      :white_check_mark:     |                                      |                                                          | :white_check_mark: |                    |
+| Deployment challenges                       |        :white_check_mark:       |    :white_check_mark:   |                             |                                      |                                                          | :white_check_mark: | :white_check_mark: |
+| Lack of downwards scalability (sites scale) |        :white_check_mark:       |                         |                             |                                      |                                                          |                    |                    |
+| End-of-life of components                   |                                 |                         |                             |                                      |                                                          |                    |                    |
+| Lack of standardization                     |                                 |                         |                             |          :white_check_mark:          |                    :white_check_mark:                    |                    |                    |
+| Missing licensing and toggling capabilities |                                 |                         |                             |                                      |                                                          |                    |                    |
+| Problematic ownership between teams         |        :white_check_mark:       |                         |                             |          :white_check_mark:          |                            :x:                           |                    | :white_check_mark: |
+| Lack of data centric architecture           |                                 |                         |                             |                                      |                    :white_check_mark:                    |                    |                    |
 
-From the point of view of the end users a system is created or modified
-to improve support of a business activity and/or improve the quality.
 
-**Form**
+**Business-oriented microservices**
 
-Short textual description, probably in tabular use-case format. If
-requirements documents exist this overview should refer to these
-documents.
+Decomposing the monolithic application into smaller, independently deployable services aligned with business capabilities. Each microservice owns its own data and business logic, enabling teams to develop, deploy, and scale services independently. This reduces coupling between components, improves maintainability, and allows teams to take clear ownership of specific business domains.
 
-Keep these excerpts as short as possible. Balance readability of this
-document with potential redundancy w.r.t to requirements documents.
+**Container orchestration**
 
-See [Introduction and Goals](https://docs.arc42.org/section-1/) in the
-arc42 documentation.
+Using platforms like Kubernetes to automate the deployment, scaling, and management of containerized applications. Container orchestration handles service discovery, load balancing, self-healing, and resource allocation, making deployments more reliable and consistent across different environments while reducing manual intervention.
+
+**Shift-left testing approach**
+
+Moving testing activities earlier in the software development lifecycle, closer to the development phase. This includes implementing automated unit tests, integration tests, and quality checks that run during development and in CI/CD pipelines, rather than relying on manual testing at the end. Early detection of defects reduces costs and accelerates feedback cycles.
+
+**API governance through API contracts**
+
+Establishing formal API specifications (e.g., OpenAPI/Swagger) that define the interface contracts between services before implementation. This ensures consistent API design, enables parallel development of dependent services, facilitates automated validation and testing, and reduces integration issues by enforcing clear communication boundaries between teams and components.
+
+**Data-driven architecture (Data collectors, mesh & subscription, coordinated data models)**
+
+Implementing a standardized approach to data management where data collectors gather information from various sources, a data mesh architecture enables decentralized data ownership with federated governance, subscription mechanisms provide event-driven data distribution, and coordinated data models ensure consistency across services. This creates a coherent data strategy that improves data quality, accessibility, and interoperability.
+
+**DevSecOps**
+
+Integrating security practices throughout the entire DevOps lifecycle, from development to deployment and operations. This includes automated security scanning, vulnerability assessments, compliance checks, and security testing in CI/CD pipelines, ensuring that security is built into the application rather than being an afterthought. DevSecOps enables faster releases while maintaining or improving security posture.
+
+**Release mgmt.**
+
+Establishing structured processes and automation for planning, scheduling, and controlling software releases across environments. This includes versioning strategies, deployment orchestration, rollback capabilities, feature flagging, and coordination between teams to ensure predictable, low-risk releases that can be executed reliably and frequently.
+
+**Not understood**
+
+- Reduced server stack complexity by using immutable and harden hyperconverged platform
+- Increase usage of commercial ready SW and focus on value-adding development activities
+- Establish key software partnerships including with hyperscalers
+- Disconnect architecture from HW and operating systems
+- Open model and flexible architecture
+- End-to-end testing of full solution
+- Pre-validation of third-party components
+
+More details on the drives behind a new DevOps architecture can be read in the [MySite Next Gen Technology options](./advanda/MySite%20Next%20Gen_Technology%20options.pdf)
+
+### DevOps Architecture Goals
+
+The overarching devops architecture vision for **mysite360** 2.0, derived from the forces outlined above, focuses on the following key aspects:
+
+- **Containerization and Orchestration**: Leveraging containerization technologies like Docker and orchestration tools like Kubernetes to ensure scalability, flexibility, and efficient resource utilization.
+- **Test Automation**: Implementing automated testing frameworks to ensure code quality, reduce manual effort, and accelerate the development lifecycle.
+- **Continuous Integration and Continuous Deployment (CI/CD)**: Implementing robust CI/CD pipelines to automate the build, test, and deployment processes, enabling faster and more reliable software delivery.
+- **Infrastructure as Code (IaC)**: Adopting IaC practices using tools like Terraform and Ansible to manage infrastructure in a version-controlled and automated manner.
+- **Monitoring and Logging**: Establishing comprehensive monitoring and logging solutions to ensure system reliability, performance, and proactive issue resolution.
 
 ## Quality Goals
 
-**Contents**
-
-The top three (max five) quality goals for the architecture whose
-fulfillment is of highest importance to the major stakeholders. We
-really mean quality goals for the architecture. Don’t confuse them with
-project goals. They are not necessarily identical.
-
-Consider this overview of potential topics (based upon the ISO 25010
-standard):
-
-![Categories of Quality
-Requirements](images/01_2_iso-25010-topics-EN.drawio.png)
-
-**Motivation**
-
-You should know the quality goals of your most important stakeholders,
-since they will influence fundamental architectural decisions. Make sure
-to be very concrete about these qualities, avoid buzzwords. If you as an
-architect do not know how the quality of your work will be judged…
-
-**Form**
-
-A table with quality goals and concrete scenarios, ordered by priorities
-
 ## Stakeholders
-
-**Contents**
-
-Explicit overview of stakeholders of the system, i.e. all person, roles
-or organizations that
-
-- should know the architecture
-
-- have to be convinced of the architecture
-
-- have to work with the architecture or with code
-
-- need the documentation of the architecture for their work
-
-- have to come up with decisions about the system or its development
-
-**Motivation**
-
-You should know all parties involved in development of the system or
-affected by the system. Otherwise, you may get nasty surprises later in
-the development process. These stakeholders determine the extent and the
-level of detail of your work and its results.
-
-**Form**
-
-Table with role names, person names, and their expectations with respect
-to the architecture and its documentation.
-
-<table>
-<colgroup>
-<col style="width: 20%" />
-<col style="width: 40%" />
-<col style="width: 40%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">Role/Name</th>
-<th style="text-align: left;">Contact</th>
-<th style="text-align: left;">Expectations</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;"><p><em>&lt;Role-1&gt;</em></p></td>
-<td style="text-align: left;"><p><em>&lt;Contact-1&gt;</em></p></td>
-<td style="text-align: left;"><p><em>&lt;Expectation-1&gt;</em></p></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><p><em>&lt;Role-2&gt;</em></p></td>
-<td style="text-align: left;"><p><em>&lt;Contact-2&gt;</em></p></td>
-<td style="text-align: left;"><p><em>&lt;Expectation-2&gt;</em></p></td>
-</tr>
-</tbody>
-</table>
