@@ -1,5 +1,30 @@
 # System Scope and Context
 
+Actors & external systems:
+
+- Developers (push PRs to GitHub).
+- GitHub (repo, Actions, OIDC).
+- SonarQube (static analysis server).
+- Artifactory (docker registry / maven/npm repo).
+- AWS (Accounts: dev / staging / prod).
+- EKS clusters (one per environment).
+- Terraform state backend (S3 + DynamoDB).
+- Monitoring stack (Prometheus/Grafana, optionally AWS CloudWatch).
+- Secrets manager (AWS Secrets Manager or HashiCorp Vault).
+- Optional: ECR as mirror for images (security/compliance).
+
+```text
+Developer -> GitHub repo (code + CI) -> GitHub Actions CI -> SonarQube
+                                           -> Build Docker -> Artifactory
+                                           -> Deploy to EKS (dev/stage/prod)
+AWS Accounts: dev, stage, prod
+EKS per account -> Kubernetes namespaces per app / ephemeral namespace for PRs
+```
+
+TODO: Add drawio diagram here.
+
+## Arc42 Note (to be removed in final version)
+
 **Contents**
 
 System scope and context - as the name suggests - delimits your system

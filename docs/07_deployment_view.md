@@ -1,5 +1,30 @@
 # Deployment View
 
+**Environment layout**
+
+- AWS account per environment: aws-dev, aws-stage, aws-prod.
+- EKS cluster per account (better isolation and IAM boundary).
+- Shared tools may run in central platform account (SonarQube, Artifactory) or SaaS-hosted.
+
+**Networking**
+
+- Private subnets for EKS nodes, public ALB for ingress.
+- EKS IAM OIDC provider configured to allow GitHub Actions to assume roles.
+
+**CI to AWS authentication**
+
+- GitHub OIDC with IAM role trust:
+  - Role: ci-github-actions-role in each account with limited privileges (deploy to k8s, push to ECR if used).
+  - Actions request temporary credentials using OIDC tokens.
+
+**Kubernetes specifics**
+
+- Use Helm charts with values per environment.
+- Use k8s-provisioner job to create ephemeral namespaces and RBAC entries for CI.
+- Use Kubernetes PodDisruptionBudgets, HPA, resource requests/limits.
+
+## Arc42 Note (to be removed in final version)
+
 **Content**
 
 The deployment view describes:

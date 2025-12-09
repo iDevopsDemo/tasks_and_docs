@@ -1,5 +1,20 @@
 # Architecture Constraints
 
+This document lists the architecture constraints for the project. These
+constraints must be followed by all architects and developers working on
+the project.
+
+- Cloud provider: AWS (must use EKS).
+- CI platform: GitHub Actions (CI & CD).
+- Artifact repo: JFrog Artifactory for container images and artifacts.
+- Static code quality: SonarQube (integrated in CI).
+- Container orchestration: Kubernetes (EKS).
+- IaC: Terraform for AWS infra, Helm for app deployment.
+- Branching model: Trunk-based with short-lived feature branches (see section Branching).
+- Versioning: Semantic Versioning (SemVer) with automated tagging.
+
+## Arc42 Note (to be removed in final version)
+
 **Contents**
 
 Any requirement that constraints software architects in their freedom of

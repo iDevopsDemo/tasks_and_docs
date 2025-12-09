@@ -1,4 +1,73 @@
-# Deployment View
+# Cross-Cutting Concepts
+
+## Branching Model (Trunk-based / short-lived)
+
+- main (always releasable; protected).
+- Feature branches feature/<short-desc> or hotfix/<id>.
+- PRs created for merging to main.
+- Release flow: tagging on main as vX.Y.Z (SemVer).
+- Optional: release/* branches if release coordination needed, but keep short-lived.
+
+**Branch protection rules**
+
+- Require passing CI.
+- Require SonarQube quality gate.
+- Require code review (1-2 approvers).
+- Enforce signed commits if desired.
+
+## Versioning (SemVer + metadata) TODO
+
+- Use Semantic Versioning: MAJOR.MINOR.PATCH.
+- CI automates version bump via one of:
+  - Conventional Commits → auto versioning (semantic-release).
+  - Manual bump via release PR that triggers tag vX.Y.Z.
+- Artifact tagging:
+  - myapp:${commit_sha} (immutable for tracing).
+  - myapp:vX.Y.Z (release tag referencing digest).
+  - myapp:latest optional (not used for prod deployments).
+- Store version metadata in Artifactory and in Git tags.
+
+## Testing Strategy & Pipeline Stages
+
+- Unit Tests — fastest; executed on every push / PR. Goal < 1-3 min via parallelization.
+- Integration Tests — run against ephemeral namespace with mocked/real dependencies, slower; run on PR merge, or PR if budget allows.
+- Contract Tests — between services (Pact or similar) executed in CI.
+- E2E Tests — run in staging environment, triggered on merge or scheduled nightly. Use stable staging environment with representative data.
+- Performance/Load Tests — scheduled or pre-release.
+- Security Scans — SAST (SonarQube), dependency checks, container scan (Trivy), optionally DAST in staging.
+
+**Test parallelization**
+
+- Split tests into workers in GitHub Actions matrix.
+- Use test selection by changed files for faster feedback.
+
+**Ephemeral Test Environments**
+
+- For each PR:
+  - Create pr-<id> k8s namespace.
+  - Deploy the commit-built image.
+  - Run integration & smoke tests.
+  - Delete namespace on close/merge.
+
+## Quality Gates with SonarQube
+
+- Execute SonarQube scanner on PR and main.
+- Block merges if quality gate fails (critical issues, coverage below threshold).
+- Keep SonarQube credentials secret (access tokens stored in GitHub Secrets or retrieved from secret manager).
+
+## Artifactory usage
+
+- Docker registry for images: artifactory.example.com/docker-local/<repo>/myapp.
+- Use promotion model: build once, promote artifact between repos/environments (dev → stage → prod) to guarantee binary equivalence.
+
+## Security & Secrets
+
+- Store secrets in AWS Secrets Manager / SSM Parameter Store or Vault.
+- GitHub Actions uses short-lived OIDC to assume role; do not store long-lived AWS keys.
+- Kubernetes secrets via sealed-secrets or external secrets operator backed by Secrets Manager.
+- Image scanning in CI; block on critical CVEs.
+
+## Arc42 Note (to be removed in final version)
 
 **Content**
 

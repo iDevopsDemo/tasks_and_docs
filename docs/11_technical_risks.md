@@ -1,5 +1,19 @@
 # Risks and Technical Debts
 
+- **Risk**: Long CI runtime slows developer feedback.
+  **Mitigation**: aggressive test splitting, test selection, caching, and running heavy tests only on merge.
+
+- **Risk**: Secrets leakage.
+  **Mitigation**: OIDC + IAM + Secrets Manager and RBAC.
+
+- **Risk**: Different behavior across environments.
+  **Mitigation**: Infrastructure parity; use same Helm charts/values with environment overrides; use infra as code.
+
+- **Risk**: Artifactory single point-of-failure.
+  **Mitigation**: High availability for Artifactory, or mirror critical artifacts to S3/ECR.
+
+## Arc42 Note (to be removed in final version)
+
 **Contents**
 
 A list of identified technical risks or technical debts, ordered by

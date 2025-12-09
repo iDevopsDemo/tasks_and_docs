@@ -80,6 +80,26 @@ The overarching devops architecture vision for **mysite360** 2.0, derived from t
 - **Infrastructure as Code (IaC)**: Adopting IaC practices using tools like Terraform and Ansible to manage infrastructure in a version-controlled and automated manner.
 - **Monitoring and Logging**: Establishing comprehensive monitoring and logging solutions to ensure system reliability, performance, and proactive issue resolution.
 
-## Quality Goals
+## Goals
+
+### Business Goals
+
+- Improve time-to-market for new features and services
+- Enhance customer satisfaction through reliable and high-quality software delivery
+- Optimize resource utilization and reduce operational costs
+- Foster a culture of innovation and continuous improvement within development teams
+- Rapid, safe delivery of features to customers.
+- High confidence in releases via automated tests and quality gates.
+- Reliable production on AWS EKS with scalable containerized services.
+
+### Quality Goals
+
+- High testability (unit / integration / E2E).
+- Fast CI feedback (parallelization, caching).
+- Traceable, reproducible builds and artifacts in Artifactory.
+- Security: least privilege, secrets management, image scanning.
+- Observability: logs, metrics, traces.
 
 ## Stakeholders
+
+To be defined.

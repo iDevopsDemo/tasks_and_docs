@@ -15,15 +15,15 @@ Containerization serves as the initial cornerstone for several key reasons:
 - **Bounded Technology Introduction**: The learning curve is manageable, focusing on a defined set of technologies including Docker, container registries, Renovate for dependency management, and Linux-based systems—all of which form the foundation for modern DevOps practices.
 
 - **Quality-Focused Foundation**: Emphasizing clean, high-quality practices from day one by:
-    - Implementing standardized pipeline templates
-    - Building upon hardened, security-vetted base images
-    - Establishing automated dependency management through Renovate for version pinning and updates
-    - Creating reproducible, immutable build artifacts
+  - Implementing standardized pipeline templates
+  - Building upon hardened, security-vetted base images
+  - Establishing automated dependency management through Renovate for version pinning and updates
+  - Creating reproducible, immutable build artifacts
 
 - **Team-Centric Value**: Container images are created primarily for the team's immediate benefit, serving as:
-    - Standardized environments for local development and testing
-    - Consistent artifacts across development, testing, and CI/CD pipelines
-    - Foundation for reducing environmental inconsistencies ("works on my machine" problems)
+  - Standardized environments for local development and testing
+  - Consistent artifacts across development, testing, and CI/CD pipelines
+  - Foundation for reducing environmental inconsistencies ("works on my machine" problems)
 
 - **Dependency Management**: Encouraging teams to explicitly identify, manage, and reduce dependencies on other services, or alternatively, create dedicated mock services for isolated testing.
 

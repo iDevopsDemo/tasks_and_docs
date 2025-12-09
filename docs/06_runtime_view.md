@@ -1,5 +1,39 @@
 # Runtime View
 
+## Developer creates a PR (fast feedback)
+
+1. Dev opens PR on feature branch in GitHub.
+2. GitHub Actions CI triggers:
+    - Run unit tests (parallel).
+    - Lint + format check.
+    - SonarQube analysis (PR scan).
+    - Build Docker image tagged with pr-<pr-number>-<sha> and push to Artifactory (optional for PR workflow).
+    - Create ephemeral k8s namespace pr-<id> in dev EKS, deploy helm chart referencing the PR image (image: digest).
+    - Run integration tests using the deployed environment (tests run as job pods).
+    - Run lightweight E2E smoke tests (optional).
+
+3. Post-status updates on PR; SonarQube/coverage or failing tests mark PR as failed.
+4. On PR close/merge, ephemeral namespace is deleted.
+
+## Merge to main — release pipeline
+
+1. Merge triggers ci-release:
+    - Run full test suite (unit + integration + E2E).
+    - Build release image: tag vX.Y.Z (SemVer) and latest-digest.
+    - Push image to Artifactory.
+    - Create a GitHub release (automated changelog).
+    - Deploy to staging cluster with canary.
+    - Run full E2E test suite against staging.
+    - If successful, promote same image digest to production with controlled rollout (canary/blue-green + automated health checks).
+    - Update version metadata in Artifactory.
+
+## Rollback scenario
+
+- Since deployments are by image digest and Helm releases, rollback is: helm rollback <release> <revision> or redeploy previous image digest.
+- Automate rollback on metrics breach (via GitHub Action/Argo Rollouts or custom operator).
+
+## Arc42 Note (to be removed in final version)
+
 **Contents**
 
 The runtime view describes concrete behavior and interactions of the
