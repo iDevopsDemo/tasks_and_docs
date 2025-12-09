@@ -1,124 +1,143 @@
 # Solution Strategy
 
-Architecture context, goals and guidelines
+## Phase I: Containerization Foundation
 
-## Architecture Goals
+The first phase of the DevOps transformation focuses primarily on **containerization** as the foundational pillar. This strategic choice prioritizes internal team development and establishes a solid technical foundation before introducing more complex collaborative workflows or tools.
 
-Target audience: product manager, product owner, architects, teams.
+### Strategic Focus
 
-The software consists of two basic components.
+Containerization serves as the initial cornerstone for several key reasons:
 
-- The Industrial Asset Hub is a SaaS offering. It can be experienced as human interactive user via a graphical user interface and/or through a restful APIs by a technical user.
+- **Achievable Entry Point**: Containerization provides a relatively straightforward starting point for teams transitioning from traditional deployment models, reducing the risk of overwhelming developers with too many simultaneous changes.
 
-- The Asset Gateway is a field component. It provides an API which allows to integrate Asset Links. Asset Links transcribe the vendor/asset specific interfaces/protocols to a well-defined normalized API.
+- **Microservices Alignment**: Container adoption naturally aligns with the migration toward a microservices architecture, establishing the mindset that services should be independently deployable and scalable (though the relationship is not one-to-one: one microservice may require multiple containers).
 
-High Level system Overview
+- **Bounded Technology Introduction**: The learning curve is manageable, focusing on a defined set of technologies including Docker, container registries, Renovate for dependency management, and Linux-based systems—all of which form the foundation for modern DevOps practices.
 
-### Offering as SaaS
+- **Quality-Focused Foundation**: Emphasizing clean, high-quality practices from day one by:
+    - Implementing standardized pipeline templates
+    - Building upon hardened, security-vetted base images
+    - Establishing automated dependency management through Renovate for version pinning and updates
+    - Creating reproducible, immutable build artifacts
 
-Industrial Asset Hub is provided as SaaS for V1.0 and exclusively provided and operated by SIEMENS. Even so the future may demand other deployment and operation models these are not considered to be design driving for this iteration.
+- **Team-Centric Value**: Container images are created primarily for the team's immediate benefit, serving as:
+    - Standardized environments for local development and testing
+    - Consistent artifacts across development, testing, and CI/CD pipelines
+    - Foundation for reducing environmental inconsistencies ("works on my machine" problems)
 
-### Asset agnostic middle ware
+- **Dependency Management**: Encouraging teams to explicitly identify, manage, and reduce dependencies on other services, or alternatively, create dedicated mock services for isolated testing.
 
-The Industrial Asset Hub is built agnostic to the specific asset types and vendors. It provides a lightweight abstraction interface which normalizes the different interfaces and models to an Industrial Asset Hub specification.
+### Benefits of the Containerization-First Approach
 
-### Field components
+**Controlled Learning Curve**
 
-The heterogenous customer network setups in combination with network cell protection concepts demand the deployment of field components to interact with the shopfloor devices. In case of the Industrial Asset Hub these consist of the so-called Asset Gateway as well as of a bunch of Asset Links.
-Field components are provided as
+By limiting exposure to a focused set of new technologies, teams gain the opportunity to deeply understand containerization concepts without being distracted by orchestration complexity, advanced deployment strategies, or cross-team collaboration tools. This measured approach builds confidence and competence.
 
-- Industrial Edge Apps which can be accessed via the Industrial Asset Hub.
-- Docker compose applications which are provided for operation in 3rd party edge environments.
+**Microservices Mindset Development**
 
-### Openness
+Containerization inherently fosters the microservices mindset by requiring developers to think about:
 
-The Industrial Asset Hub is an open ecosystem platform. It provides openness in two dimensions as there are:
+- Service boundaries and interfaces
+- Self-contained, independently runnable components
+- Explicit declaration of dependencies and configurations
+- Portability across different environments
 
-- An openness for assets is provided via a well-defined abstraction interface. This allows 3rd parties to integrate with Industrial Asset Hub without the need to change the platform. New asset types can be introduced by device builders. Device builders are supported as participants in the IAH eco system via a device builder kit consisting of documentation, binaries, source code, templates.
-- IAH exposes all its functionalities via RESTful APIs. These allow on one hand solution partners to build services on top of IAH and on the other hand an integration with enterprise services on customer side.
+**Internal Focus on Fundamental Shifts**
 
-### Extensibility
+Teams can concentrate on critical mindset transformations without external pressures:
 
-Compliance with standards
-The Industrial Asset Hub has no compatibility demands according to existing standards. Non the less it needs to provide extension points and models which allow to integrate with evolving standards like e.g.
+- **Product Readiness**: Building applications that are "production-ready" and can run consistently anywhere—from a developer's laptop to cloud infrastructure
+- **Ownership**: Understanding that CI/CD improvements and containerization efforts directly benefit their own development workflow, not just external operational requirements
+- **Self-Service**: Establishing autonomy over their development and testing environments
 
-- Asset Administration Shell
-- OI4.0 Initiative
-- Anchor Model
-- ….
+**Application-Level Improvements**
 
-Restful API of Industrial Asset Hub services
-From release V1.0 on it is intended the backend APIs are expected to be kept downward compatible. Since there is still a quick evolvement of the service and the customer penetration will be limited for this release the APIs are still marked as `v1-earlyaccess` which allows in a case-by-case discussion to incompatibly adapt or deprecate the one or other API.
+The containerization phase enables teams to address fundamental application architecture concerns:
 
-Protobuf device builder interface
-From release V1.0 on it is intended to keep the Asset Gateway’s gRPC interface downward compatible. Since there is still a quick evolvement of the service and the customer penetration will be limited for this release the APIs can be incompatibly adapted or deprecate which is to be decided in a case-by-case discussion.
+- **Explicit Dependency Management**: Documenting and managing dependencies clearly, creating visibility into what each service requires
+- **Dependency Reduction**: Identifying opportunities to minimize coupling between services, improving modularity and testability
+- **Platform Migration**: Facilitating the transition from Windows-based systems to modern Linux-based environments in a controlled, per-service manner
 
-### Security
+**Team Scalability and Reorganization Support**
 
-Industrial Asset Hub is built as a multi-tenant SaaS offering. It implements a multi-layer cloud security concept. The cloud services are developed according to internal regulations and comply with ISO 27001.
+As the organization grows and teams reorganize, containerization provides:
 
-### Deployment
+- **Consistent Onboarding**: New team members can quickly spin up complete local development environments using containers
+- **Improved Local Tooling**: Standardized approaches for running and testing components locally without complex environment setup
 
-Industrial Asset Hub is offered as SaaS. Hence it is deployed and operated by the project organization.
-Operation by third parties is not intended as of now.
+### Why Not Start with Complex Collaboration Tools?
 
-**Cloud Services**<br>
-The cloud services are deployed and operated on AWS using a gitops approach.
+This phase intentionally **defers** introducing complex workflows such as advanced orchestration (Kubernetes), sophisticated API gateways, or intricate cross-team collaboration platforms. These will come in later phases once teams have:
 
-**Field Services**<br>
-Field services are hosted on edge computing infrastructures. This can be SIEMENS` Industrial Edge but as well be 3rd party infrastructures. The Industrial Asset Hub provides dockerized services for these.
+- Mastered the fundamentals of containerization
+- Established confidence in their local development practices
+- Built a foundation of containerized services ready for orchestration
+- Developed the organizational maturity to handle more complex collaborative workflows
 
-## Reuse and Open-Source Strategy
+By focusing inward first, teams build the technical and cultural foundation necessary for successful adoption of more advanced DevOps practices in subsequent phases.
 
-### OSS Usage
+### Tooling & Technologies
 
-Wherever possible Industrial Asset Hub relies on 3rd party / open-source software components. Some of them mentioned here.
+The Phase I technology stack is deliberately constrained to essential tools that support containerization while maintaining a manageable learning curve.
 
-#### WFX - Workflow Execution
+#### Core Technologies (Explicit)
 
-The workflow execution engine and model player serves as the central job engine to connect the field services to the cloud. It helps distributing the services from edge to cloud in a reliable way.
+- **Docker**: The primary containerization platform for building, packaging, and running container images
+- **Renovate**: Automated dependency management tool for version pinning and keeping dependencies up-to-date with minimal manual effort
+- **Container Hardening Service**: Centralized service providing security-vetted, hardened base images that follow best practices
+- **Hadolint**: Dockerfile linter that enforces best practices and identifies potential issues in Dockerfile syntax and structure
+- **Docker Container Scanning**: Security scanning tools to detect vulnerabilities in container images before deployment
+- **Container Registry**: Centralized artifact storage (CSC, Artifactory) for managing and distributing container images across teams
 
-- Firewall friendly construction since the agent is exclusively using outgoing communications to connect with the backend workflow executor.
-- Reliable and resumable workflows for longer running operations can be modeled.
-- The WFX allows to model complex workflows and to interact with them
+#### Supporting Technologies (Implicit)
 
-### OSS Contribution
+- **Linux**: Foundation operating system for containers, requiring teams to develop Linux-based system understanding
+- **RESTful APIs**: Interface design patterns for service communication and integration
+- **Pre-commit**: Git hook framework for running automated checks before code commits, catching issues early in the development process
 
-#### SDK - Software Development Kit
+### Pipeline Setup
 
-Industrial Asset Hub is a device vendor agnostic platform. For device builder support a software development kit (SDK) consisting of documentation, code and binaries is provided as open source.
+The Phase I pipeline strategy introduces containerization workflows **in parallel** with existing pipelines, allowing teams to adopt new practices without disrupting current production deployments. A unified pipeline template is being developed to ensure consistency across all teams while they transition.
 
-## Dependencies
+#### Pipeline Architecture
 
-### Xcelerator Operation Foundational Services
+```mermaid
+graph LR
+    A[Code Commit] --> B[Pre-commit]
+    A --> C[Hadolint]
+    B --> D
+    C --> D[Docker Build]
+    D --> E[Container Scan]
+    E --> F[Push to Registry]
 
-Industrial Asset Hub as part of Xcelerator Operations founds its service on the so-called Foundational Services (FDS) /R6/.
+    style A fill:#e1f5ff
+    style B fill:#fff4e1
+    style C fill:#fff4e1
+    style D fill:#e1ffe1
+    style E fill:#fff4e1
+    style F fill:#e1f5ff
+```
 
-### Industrial Edge
+ *) Validation checks:
 
-Industrial Asset Hub is built as a ready to use offering once using Industrial Edge as a gateway. Hence all gateway services from IAH are provided as Industrial Edge apps. As well asset links from SIEMENS are provided as Industrial Edge apps.
-3rd party providers e.g. from Asset Links are actively encouraged to publish their applications for Industrial Edge /R7/.
+- includes tools that can also be run locally to provide early feedback
+- slowly introduce the concept of clean and high-quality builds by being extendable over time and adapted on team-to-team basis
 
-## Reference Architecture
+### Transition Strategy
 
-### Mid-Term Overview
+- **Parallel Development**: New containerization pipelines run alongside existing deployment pipelines
+- **No Production Impact**: Teams can experiment and learn without affecting current production workflows
+- **Unified Template**: Single pipeline template shared across teams ensures consistency and reduces maintenance burden
+- **Incremental Adoption**: Teams can migrate at their own pace once comfortable with the new approach
 
-## Architecture guidelines and principles
+### Metrics
 
-### Xcelerator Operations (XO) – Well-Architected
+The below metrics serve as **observability indicators** rather than team performance measures. These metrics help the DevOps architecture team assess whether the transformation is progressing effectively and whether teams are ready for Phase II. Importantly, these metrics are **not goals** and should not be used to evaluate team success. The goals of the DevOps architecture are outlined in the Strategic Focus section above, whereas the goals of the overall transition can be read in the [MySite Next Gen Technology options](./advanda/MySite%20Next%20Gen_Technology%20options.pdf).
 
-If not differently mentioned the product complies with Xcelerator Operations.
-
-#### Adaption of the service Catalog
-
-#### Well-Architected Framework (XO)
-
-#### Compatibility
-
-Customer facing contracts are kept compatible over time.
-Industrial Asset Hub provides two programming interfaces.
-
-- RESTful APIs for the backend services
-- gRPC interface for the Asset links
-
-Both are to be kept backward compatible over time. Versioning of the APIs allow their life cycle management.
+- External Dependency Count
+- Container Local Development Adoption
+- Local Development Setup Effort
+- Pre-commit/Hadolint Pipeline Failures
+- Pipeline Failure Rate: Tracks reliability and maturity of containerization implementation
+- Mean Time to Recovery (MTTR) for Pipeline
+- Renovate Update Merge Rate
