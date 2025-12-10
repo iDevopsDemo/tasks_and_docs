@@ -2,13 +2,13 @@
 
 **Environment layout**
 
-- AWS account per environment: aws-dev, aws-stage, aws-prod.
+- AWS account per environment: aws-dev, aws-stage, aws-prod. <!--- #TODO multi or single account/cluster -->
 - EKS cluster per account (better isolation and IAM boundary).
 - Shared tools may run in central platform account (SonarQube, Artifactory) or SaaS-hosted.
 
 **Networking**
 
-- Private subnets for EKS nodes, public ALB for ingress.
+- Private subnets for EKS nodes, public NLB for ingress.
 - EKS IAM OIDC provider configured to allow GitHub Actions to assume roles.
 
 **CI to AWS authentication**

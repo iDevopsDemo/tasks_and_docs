@@ -5,13 +5,14 @@ Actors & external systems:
 - Developers (push PRs to GitHub).
 - GitHub (repo, Actions, OIDC).
 - SonarQube (static analysis server).
-- Artifactory (docker registry / maven/npm repo).
-- AWS (Accounts: dev / staging / prod).
-- EKS clusters (one per environment).
-- Terraform state backend (S3 + DynamoDB).
+- Artifactory (docker registry / maven / npm repo). <!--- #TODO which packages? -->
+- AWS (Accounts: dev / staging / prod). <!--- #TODO multi or single account? -->
+- EKS clusters (one per environment). <!--- #TODO multi or single cluster? -->
+- Terraform state backend (S3 + DynamoDB). <!--- #TODO terraform required? Where to store state? -->
 - Monitoring stack (Prometheus/Grafana, optionally AWS CloudWatch).
 - Secrets manager (AWS Secrets Manager or HashiCorp Vault).
-- Optional: ECR as mirror for images (security/compliance).
+
+## High-Level System Context Diagram
 
 ```text
 Developer -> GitHub repo (code + CI) -> GitHub Actions CI -> SonarQube

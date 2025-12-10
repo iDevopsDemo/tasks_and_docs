@@ -2,7 +2,7 @@
 
 Components and responsibilities:
 
-- **GitHub Repositories**
+- **GitHub Repositories** <!--- #TODO propose a Github structure -->
   - app-services (code + Dockerfile + k8s/helm chart)
   - infra (Terraform for EKS, VPC, IAM)
   - platform (shared charts, k8s operators)
@@ -22,7 +22,7 @@ Components and responsibilities:
 
 - **Kubernetes (EKS)**
   - Helm charts for deployments.
-  - Namespaces: infra, shared, app-{name}, pr-<id> (ephemeral).
+  - Namespaces: infra, shared, app-{name}, pr-<id> (ephemeral). <!--- #TODO define namespaces -->
   - CI-created ephemeral namespaces for PRs.
 
 - **Infrastructure**
@@ -34,3 +34,6 @@ Components and responsibilities:
   - IAM roles for service accounts (IRSA).
   - Image scanning during CI (Snyk/Trivy — optional).
 
+## Pipelines
+
+![Pipeline Diagram](testing/pipelines.png)
