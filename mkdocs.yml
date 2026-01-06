@@ -47,9 +47,10 @@ nav:
     - "31.10.2025": meetings/mm251031.md
     - "12.11.2025": meetings/mm251112.md
     - "18.11.2025": meetings/mm251118.md
+    - "10.12.2025": meetings/mm251210.md
     - notes: meetings/notes.md
   - Versioning: versioning/README.md
-  - Glossary: 12_glossary.md
+  - Glossary: 13_glossary.md
   - Appendix: A_appendix.md
 
 extra:
