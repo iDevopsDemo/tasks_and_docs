@@ -10,7 +10,7 @@ the project.
 - Static code quality: SonarQube (integrated in CI).
 - Container orchestration: Kubernetes (EKS).
 - IaC: Terraform for AWS infra, Helm for app deployment.
-- Branching model: Trunk-based with short-lived feature branches (see section Branching).
+- Branching model: Trunk-based with short-lived feature branches (see section [Branching](./08_cross_cutting_concepts.md#branching-model-trunk-based--short-lived)).
 - Versioning: Semantic Versioning (SemVer) with automated tagging.
 
 ## Arc42 Note (to be removed in final version)
