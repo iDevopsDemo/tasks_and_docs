@@ -37,3 +37,7 @@ Installability
 Replaceability
 Analyzability
 samauth
+psite
+psites
+vsite
+vsites
