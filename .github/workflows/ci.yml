@@ -1,0 +1,133 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  lint:
+    name: Lint Markdown and Spellcheck
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install dependencies
+        run: yarn install
+      - name: Install jq and mmv
+        run: sudo apt-get update && sudo apt-get install -y jq mmv
+      - name: Lint markdown
+        run: yarn run lint:markdown
+      - name: Lint spellcheck
+        run: yarn run lint:cspell
+      - name: Generate code quality report
+        run: |
+          jq .issues out.json | jq '[.[] | {description: (.text + ": " + .context.text), severity: "major", location: { path: .uri, lines: { begin: .row}}, fingerprint: . | @base64 }]' > gl-code-quality-report.json
+        if: always()
+      - name: Upload code quality report
+        uses: actions/upload-artifact@v4
+        with:
+          name: code-quality-report
+          path: gl-code-quality-report.json
+
+  commitlint_mr:
+    name: Commit Lint (MR)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Commitizen
+        run: pip install commitizen
+      - name: Run Commitizen check
+        run: cz check --rev-range origin/main..HEAD
+
+  pre_commit:
+    name: Pre-commit Checks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - name: Install pre-commit
+        run: pip install pre-commit
+      - name: Run pre-commit
+        run: pre-commit run --all-files --show-diff-on-failure --color=always
+
+  build_mkdocs:
+    name: Build MkDocs
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - name: Install Poetry
+        run: pip install poetry
+      - name: Install dependencies
+        run: poetry install --no-root
+      - name: Build MkDocs
+        run: poetry run mkdocs build --strict
+      - name: Upload site artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: site
+          path: site/
+
+  deploy_mkdocs:
+    name: Deploy MkDocs
+    needs: build_mkdocs
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: site
+          path: site/
+      - name: Move site to public
+        run: mv site public
+      - name: Upload public artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: public
+          path: public/
+
+  review:
+    name: Review Environment
+    needs: build_mkdocs
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request' && github.base_ref == 'main'
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: site
+          path: site/
+      - name: Echo review content
+        run: echo "Review content"
+      - name: Upload site artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: review-site
+          path: site/
+
+  pages:
+    name: GitHub Pages Deploy
+    needs: deploy_mkdocs
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: public
+          path: public/
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
