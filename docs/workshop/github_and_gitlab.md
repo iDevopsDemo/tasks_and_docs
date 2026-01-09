@@ -19,7 +19,7 @@ However, GitHub lacks support for **hierarchical structures** beyond organizatio
 
 GitLab offers a more flexible hierarchical structure through **Groups**:
 
-- Nested groups allow for multi-level organization (e.g., Poduct > Micro-Service > Component)
+- Nested groups allow for multi-level organization (e.g., Product > Micro-Service > Component)
 - Inherited permissions and settings cascade down the hierarchy
 - Group-level CI/CD variables and runners
 
@@ -79,8 +79,8 @@ jobs:
 | ----------------------- | ----------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
 | Templating              | Includes Statement (local files, remote URLs, and **versioning**)       |                                                                                                                     |
 |                         | Extends Keyword (reuse entire or **partially extend** on existing jobs) | Composite Actions (reusable actions composed of multiple steps)                                                     |
-|                         | YAML anchors (Ability to resuse configuration snippets)                 | YAML anchors                                                                                                        |
-|                         |                                                                         | Oranganizational workflow templates (standardized CI/CD starting points)                                            |
+|                         | YAML anchors (Ability to reuse configuration snippets)                 | YAML anchors                                                                                                        |
+|                         |                                                                         | Organizational workflow templates (standardized CI/CD starting points)                                            |
 |                         |                                                                         | Actions Marketplace (community-contributed, vetted actions )                                                        |
 | Multi-Project Pipelines | Downstream pipelines (Parent-child/Multi-project)                       | Workflow Calls/Repository Dispatch/Workflow Dispatch (triggering workflows in other repositories or "reusing" them) |
 
@@ -126,6 +126,6 @@ GitHub provides comprehensive guidance for secure workflow implementation, inclu
 
 ### General recommendations
 
-- **Utilize Organization capabilities**: Make use of Githubs organization capabilities wherever possible. Deployment environments and associated secrets, access control, workflow templates ...
+- **Utilize Organization capabilities**: Make use of GitHub's organization capabilities wherever possible. Deployment environments and associated secrets, access control, workflow templates ...
 - **Plan for security**: Thoroughly work through the security best practices and apply techniques from the very beginning wby templating
-- **Provided extendable templating**: Support development teams by providing and attesting simple resusable actions and templates rather than offering DevOpsaaS capabilities. Make use of the community mindset, that GitHub supports.
+- **Provided extendable templating**: Support development teams by providing and attesting simple reusable actions and templates rather than offering DevOps as a Service capabilities. Make use of the community mindset, that GitHub supports.
