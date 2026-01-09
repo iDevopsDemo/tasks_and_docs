@@ -126,8 +126,6 @@ GitHub provides comprehensive guidance for secure workflow implementation, inclu
 
 ### General recommendations
 
-### Security Hardening
-
-- **Adopt OIDC Authentication:** Replace stored credentials with token-based access for AWS and other cloud services
-- **Implement Artifact Attestations:** Use GitHub's attestation features for build provenance and supply chain security
-- **Plan for Offline Scenarios:** Design workflows that support air-gapped verification when needed
+- **Utilize Organization capabilities**: Make use of Githubs organization capabilities wherever possible. Deployment environments and associated secrets, access control, workflow templates ...
+- **Plan for security**: Thoroughly work through the security best practices and apply techniques from the very beginning wby templating
+- **Provided extendable templating**: Support development teams by providing and attesting simple resusable actions and templates rather than offering DevOpsaaS capabilities. Make use of the community mindset, that GitHub supports.
