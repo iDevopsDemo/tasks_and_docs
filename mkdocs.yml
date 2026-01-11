@@ -49,6 +49,8 @@ nav:
     - "18.11.2025": meetings/mm251118.md
     - "10.12.2025": meetings/mm251210.md
     - notes: meetings/notes.md
+  - Workshop:
+    - "Github vs Gitlab": workshop/github_and_gitlab.md
   - Versioning: versioning/README.md
   - Glossary: 13_glossary.md
   - Appendix: A_appendix.md
