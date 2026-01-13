@@ -20,3 +20,28 @@ The full details of the DevOps architecture can be found in the [DevOps Architec
 ![High Level Pipeline Diagram](pics/highlevel.png)
 
 ![Pipeline Detail Diagram](pics/pipeline-template.drawio.png)
+
+## Tools Used
+
+* Cloud provider: AWS (must use EKS).
+* CI platform: GitHub Actions (CI & CD).
+* Artifact repo: JFrog Artifactory for container images and artifacts.
+* Static code quality: SonarQube (integrated in CI).
+* Container orchestration: Kubernetes (EKS).
+* IaC: Terraform for AWS infra, Helm for app deployment.
+* Versioning: Semantic Versioning (SemVer) with tagging for release based on GitVersion tool.
+
+## Branching and Versions
+
+[GitVersion](https://gitversion.net/) is used to manage versioning based on the branching strategy.
+
+We recommend to go with the GitFlow branching strategy as illustrated [here](https://gitversion.net/docs/learn/branching-strategies/gitflow/examples). This includes the following branches:
+
+* `main`: The main branch contains the production-ready code.
+* `develop`: The develop branch is used for ongoing development and integration of features.
+* Feature Branches: Feature branches are created from the develop branch for specific features or tasks. Once completed, they are merged back into develop via pull requests.
+* Release Branches: When preparing for a release, a release branch is created from develop. This branch is used for final testing and bug fixes before merging into main.
+* Hotfix Branches: Hotfix branches are created from main to address critical issues in production. Once fixed, they are merged back into both main and develop.
+* Pull Requests: All changes to the codebase are made through pull requests, which are reviewed and approved by team members before merging.
+* Versioning: Semantic versioning is recommended for managing versions of the application. This includes using version numbers in the format of MAJOR.MINOR.PATCH.
+* Tagging: Releases are tagged in the repository to mark specific versions of the codebase.

@@ -11,7 +11,7 @@ the project.
 - Container orchestration: Kubernetes (EKS).
 - IaC: Terraform for AWS infra, Helm for app deployment.
 - Branching model: Trunk-based with short-lived feature branches (see section [Branching](./08_cross_cutting_concepts.md#branching-model-trunk-based--short-lived)).
-- Versioning: Semantic Versioning (SemVer) with automated tagging.
+- Versioning: Semantic Versioning (SemVer) with tagging for release.
 
 ## Arc42 Note (to be removed in final version)
 
