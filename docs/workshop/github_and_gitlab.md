@@ -79,8 +79,8 @@ jobs:
 | ----------------------- | ----------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
 | Templating              | Includes Statement (local files, remote URLs, and **versioning**)       |                                                                                                                     |
 |                         | Extends Keyword (reuse entire or **partially extend** on existing jobs) | Composite Actions (reusable actions composed of multiple steps)                                                     |
-|                         | YAML anchors (Ability to reuse configuration snippets)                 | YAML anchors                                                                                                        |
-|                         |                                                                         | Organizational workflow templates (standardized CI/CD starting points)                                            |
+|                         | YAML anchors (Ability to reuse configuration snippets)                  | YAML anchors                                                                                                        |
+|                         |                                                                         | Organizational workflow templates (standardized CI/CD starting points)                                              |
 |                         |                                                                         | Actions Marketplace (community-contributed, vetted actions )                                                        |
 | Multi-Project Pipelines | Downstream pipelines (Parent-child/Multi-project)                       | Workflow Calls/Repository Dispatch/Workflow Dispatch (triggering workflows in other repositories or "reusing" them) |
 

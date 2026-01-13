@@ -35,7 +35,7 @@ The full details of the DevOps architecture can be found in the [DevOps Architec
 
 [GitVersion](https://gitversion.net/) is used to manage versioning based on the branching strategy.
 
-We recommend to go with the GitFlow branching strategy as illustrated [here](https://gitversion.net/docs/learn/branching-strategies/gitflow/examples). This includes the following branches:
+We recommend to go with the GitFlow branching strategy as illustrated [gitflow](https://gitversion.net/docs/learn/branching-strategies/gitflow/examples). This includes the following branches:
 
 * `main`: The main branch contains the production-ready code.
 * `develop`: The develop branch is used for ongoing development and integration of features.
